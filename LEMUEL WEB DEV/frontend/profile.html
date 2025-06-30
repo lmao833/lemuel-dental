@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - Lemuel's Dental</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div>
+        <a href="index.html" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit;">
+          <img src="assets/logo.svg" alt="LD Logo">
+          <span style="font-size:1.3rem;font-weight:700;vertical-align:middle;">Lemuel's Dental</span>
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="book.html">Book Appointment</a>
+        <div id="user-initials" class="user-initials"></div>
+      </div>
+    </nav>
+  </header>
+  <section class="dashboard" id="profile-section">
+    <h2>My Profile</h2>
+    <form id="profile-form">
+      <label for="profile-name">Full Name</label>
+      <input type="text" id="profile-name" name="name" required>
+      <label for="profile-email">Email</label>
+      <input type="email" id="profile-email" name="email" required disabled>
+      <label for="profile-phone">Phone</label>
+      <input type="tel" id="profile-phone" name="phone" required>
+      <label for="profile-address">Address</label>
+      <input type="text" id="profile-address" name="address" required>
+      <button class="btn" type="submit">Update Profile</button>
+      <div id="profile-msg" style="margin-top:0.7rem;display:none;"></div>
+    </form>
+    <h3 style="margin-top:2.5rem;">My Appointments</h3>
+    <table class="table">
+      <thead>
+        <tr><th>Service</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody id="my-appt-tbody"></tbody>
+    </table>
+  </section>
+  <footer>
+    <div>12 clove Street, Dansoman, Accra, Ghana | +233 54 763 5431 | info@Lemueldentalclinic.com</div>
+    <div style="margin-top:0.3rem;">© 2025 Lemuel's Web Dev Project</div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>

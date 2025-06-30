@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard - Lemuel's Dental</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div>
+        <a href="index.html" style="display:inline-flex;align-items:center;text-decoration:none;color:inherit;">
+          <img src="assets/logo.svg" alt="LD Logo">
+          <span style="font-size:1.3rem;font-weight:700;vertical-align:middle;">Lemuel's Dental</span>
+        </a>
+      </div>
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <div id="user-initials" class="user-initials"></div>
+      </div>
+    </nav>
+  </header>
+  <section class="dashboard" id="staff-dashboard">
+    <h2>Staff Dashboard</h2>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:300px;">
+        <h3>Patients</h3>
+        <input type="text" id="patient-search" placeholder="Search patients..." onkeyup="filterTable('patient-search','patients-table')" style="margin-bottom:0.7rem;width:100%;padding:0.5rem;">
+        <button class="btn" onclick="exportTableToCSV('patients-table','patients.csv')">Export CSV</button>
+        <table class="table" id="patients-table">
+          <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div style="flex:1;min-width:300px;">
+        <h3>Future Appointments</h3>
+        <input type="text" id="future-appt-search" placeholder="Search appointments..." onkeyup="filterTable('future-appt-search','future-appt-table')" style="margin-bottom:0.7rem;width:100%;padding:0.5rem;">
+        <button class="btn" onclick="exportTableToCSV('future-appt-table','future_appointments.csv')">Export CSV</button>
+        <table class="table" id="future-appt-table">
+          <thead><tr><th>ID</th><th>Name</th><th>Service</th><th>Date</th><th>Time</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <h3 style="margin-top:2rem;">Past Appointments</h3>
+        <input type="text" id="past-appt-search" placeholder="Search appointments..." onkeyup="filterTable('past-appt-search','past-appt-table')" style="margin-bottom:0.7rem;width:100%;padding:0.5rem;">
+        <button class="btn" onclick="exportTableToCSV('past-appt-table','past_appointments.csv')">Export CSV</button>
+        <table class="table" id="past-appt-table">
+          <thead><tr><th>ID</th><th>Name</th><th>Service</th><th>Date</th><th>Time</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div>12 clove Street, Dansoman, Accra, Ghana | +233 54 763 5431 | info@Lemueldentalclinic.com</div>
+    <div style="margin-top:0.3rem;">© 2025 Lemuel's Web Dev Project</div>
+  </footer>
+  <script src="js/staff.js"></script>
+  <script>
+    // Fetch and populate patients
+    fetch('http://127.0.0.1:5000/patients').then(r=>r.json()).then(data=>{
+      const tbody = document.querySelector('#patients-table tbody');
+      tbody.innerHTML = '';
+      data.patients.forEach(p=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${p.id}</td><td>${p.name}</td><td>${p.email}</td><td>${p.phone}</td><td>${p.address}</td>`;
+        tbody.appendChild(tr);
+      });
+    });
+    // Future appointments
+    fetch('http://127.0.0.1:5000/appointments/future').then(r=>r.json()).then(data=>{
+      const tbody = document.querySelector('#future-appt-table tbody');
+      tbody.innerHTML = '';
+      data.appointments.forEach(a=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${a.id}</td><td>${a.name}</td><td>${a.service}</td><td>${a.date}</td><td>${a.time}</td>`;
+        tbody.appendChild(tr);
+      });
+    });
+    // Past appointments
+    fetch('http://127.0.0.1:5000/appointments/past').then(r=>r.json()).then(data=>{
+      const tbody = document.querySelector('#past-appt-table tbody');
+      tbody.innerHTML = '';
+      data.appointments.forEach(a=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${a.id}</td><td>${a.name}</td><td>${a.service}</td><td>${a.date}</td><td>${a.time}</td>`;
+        tbody.appendChild(tr);
+      });
+    });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
